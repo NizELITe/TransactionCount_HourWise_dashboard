@@ -1,0 +1,7 @@
+﻿# transaction data and generated dashboards (may contain sensitive data)
+*.xlsx
+*.xlsm
+*.csv
+output/
+web/data.js
+__pycache__/

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Merchant Transaction Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <div class="eyebrow">Transaction Report</div>
+      <h1>Top Merchants Dashboard</h1>
+      <p class="sub" id="heroSub"></p>
+    </div>
+    <div class="hero-actions">
+      <button class="btn ghost" id="btnExport" title="Download the current table as CSV">Export CSV</button>
+      <button class="btn ghost" id="btnTheme" title="Switch light / dark">Theme</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div id="warn" class="warn" hidden></div>
+
+  <section class="card filters" id="filters">
+    <div class="f-group">
+      <label>Date range</label>
+      <div class="row">
+        <select id="fD0"></select><span class="dash">to</span><select id="fD1"></select>
+      </div>
+    </div>
+    <div class="f-group">
+      <label>Time of day</label>
+      <div class="row">
+        <input type="time" id="fT0" value="00:00"><span class="dash">to</span><input type="time" id="fT1" value="23:59">
+      </div>
+      <div class="chips" id="quick"></div>
+    </div>
+    <div class="f-group">
+      <label>Rank by</label>
+      <div class="seg" id="segMetric"><button data-v="count" class="on">Transactions</button><button data-v="amount">Amount</button></div>
+    </div>
+    <div class="f-group">
+      <label>Top</label>
+      <select id="fTop"><option>5</option><option selected>10</option><option>15</option><option>20</option><option>25</option><option>50</option></select>
+    </div>
+    <div class="f-group">
+      <label>Period size</label>
+      <select id="fGran">
+        <option value="1">15 minutes</option><option value="2">30 minutes</option><option value="4" selected>1 hour</option>
+        <option value="8">2 hours</option><option value="12">3 hours</option><option value="24">6 hours</option>
+        <option value="48">12 hours</option><option value="96">Whole day</option>
+      </select>
+    </div>
+    <div class="f-group" id="modeGroup">
+      <label>Multiple days</label>
+      <div class="seg" id="segMode"><button data-v="separate" class="on">Day by day</button><button data-v="combined">Combined</button></div>
+    </div>
+    <div class="f-group grow">
+      <label>Search merchant / IBAN / ID</label>
+      <input type="search" id="fQ" placeholder="e.g. Daraz or PK36...">
+    </div>
+    <div class="f-group grow-2">
+      <label>Status</label>
+      <div class="chips" id="statusChips"></div>
+    </div>
+    <div class="f-group"><label>&nbsp;</label><button class="btn" id="btnReset">Reset</button></div>
+  </section>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="card">
+    <div class="card-h"><div><h2 id="topTitle">Top merchants</h2><p class="muted" id="topSub"></p></div></div>
+    <div class="scroll"><table class="tbl" id="topTbl"></table></div>
+  </section>
+
+  <section class="card">
+    <div class="card-h"><div><h2>Merchant &times; time period heatmap</h2><p class="muted" id="heatSub"></p></div></div>
+    <div class="scroll heat-scroll"><table class="heat" id="heat"></table></div>
+  </section>
+
+  <section class="card">
+    <div class="card-h"><div><h2>Transactions by period &mdash; stacked by merchant</h2><p class="muted" id="stackSub"></p></div></div>
+    <div class="legend" id="stackLegend"></div>
+    <div class="scroll" id="stack"></div>
+  </section>
+
+  <section class="grid">
+    <div class="card"><div class="card-h"><div><h2>Hour of day</h2><p class="muted">All selected days combined</p></div></div><div id="hourly"></div></div>
+    <div class="card" id="dailyCard"><div class="card-h"><div><h2>Day by day</h2><p class="muted">Total per date</p></div></div><div id="daily"></div></div>
+    <div class="card"><div class="card-h"><div><h2>Busiest periods</h2><p class="muted" id="busySub"></p></div></div><div id="busy"></div></div>
+    <div class="card"><div class="card-h"><div><h2>Status</h2><p class="muted">By transactions</p></div></div><div id="donutStatus"></div></div>
+    <div class="card"><div class="card-h"><div><h2>Settlement mode</h2><p class="muted">By transactions</p></div></div><div id="donutMode"></div></div>
+    <div class="card"><div class="card-h"><div><h2>Top cities</h2><p class="muted">By merchant location</p></div></div><div id="cities"></div></div>
+  </section>
+
+  <footer class="foot muted" id="foot"></footer>
+</main>
+
+<div id="overlay" hidden></div>
+<aside id="drawer" hidden></aside>
+<div id="tip" hidden></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
